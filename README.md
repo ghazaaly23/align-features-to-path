@@ -6,7 +6,7 @@ A QGIS plugin that snaps and aligns polygon or line features to a hand-drawn ali
 
 - **Author:** Mustafa Nehad Elghazaly
 - **Email:** mostafanehad188@gmail.com
-- **Repository:** https://github.com/mustafanehad188/align-features-to-path
+- **Repository:** https://github.com/ghazaaly23/align-features-to-path.git
 - **QGIS:** 3.28 – 4.x
 
 ---
