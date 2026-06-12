@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="4" fill="#2c3e50"/>
+  <!-- Alignment path (orange line) -->
+  <polyline points="4,24 10,14 18,18 28,8"
+            stroke="#e67e22" stroke-width="2.5" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Polygon below path -->
+  <polygon points="6,28 14,22 20,25 26,20 26,28"
+           fill="#3498db" fill-opacity="0.5"
+           stroke="#3498db" stroke-width="1.2"/>
+  <!-- Snapping arrows (small vertical ticks) -->
+  <line x1="10" y1="14" x2="10" y2="22" stroke="#2ecc71" stroke-width="1.5"
+        stroke-dasharray="1,1" stroke-linecap="round"/>
+  <line x1="18" y1="18" x2="19" y2="24" stroke="#2ecc71" stroke-width="1.5"
+        stroke-dasharray="1,1" stroke-linecap="round"/>
+  <!-- Vertex dots on path -->
+  <circle cx="4"  cy="24" r="2" fill="#e67e22"/>
+  <circle cx="10" cy="14" r="2" fill="#e67e22"/>
+  <circle cx="18" cy="18" r="2" fill="#e67e22"/>
+  <circle cx="28" cy="8"  r="2" fill="#e67e22"/>
+</svg>

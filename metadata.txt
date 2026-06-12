@@ -1,0 +1,29 @@
+[general]
+name=Align Features to Path
+qgisMinimumVersion=3.28
+qgisMaximumVersion=4.99
+description=Snap and align polygon/line features to a digitised alignment path, with true curve tracing (like ArcGIS Pro's Trace tool).
+version=10.2.0
+author=Mustafa Elghazaly
+email=mostafanehad188@gmail.com
+about=Draw an alignment path on the map, then align nearby polygon or line features to it using one of five methods: Fit to Path, Smart Fit, Preserve Shape, Snap Ends Only, or Trace & Smooth. Smart Fit adds intersection-significance filtering (prevents L-corner pulls and crossing-line artefacts) and proximity-weighted vertex movement (vertices close to the path snap fully; distant ones snap gently). The Trace & Smooth method genuinely traces the path curve onto polygon boundaries. v10 introduces Global Master Boundary Alignment: all near-path vertices across every affected polygon are forced to the exact same master path coordinates, guaranteeing bitwise-identical shared boundaries with zero gaps or slivers. v10.1 adds full QGIS 4 compatibility.
+tracker=https://github.com/mustafa-elghazaly/align-features-to-path/issues
+repository=https://github.com/mustafa-elghazaly/align-features-to-path
+tags=alignment, snap, polygon, cadastral, topology, trace, curve, qgis4
+homepage=https://github.com/mustafa-elghazaly/align-features-to-path
+category=Vector
+icon=icon.svg
+experimental=False
+deprecated=False
+changelog=
+    v10.2.0: Smart Fit mode + Square End audit. New METHOD_SMART_FIT adds (1) intersection-significance pre-filter: features that only clip a corner of the buffer (L-corner pulls, crossing lines) are skipped based on a configurable overlap-ratio threshold; (2) proximity-weighted vertex movement: vertices near the path snap almost fully, distant vertices move gently (quadratic falloff), eliminating aggressive global pull. UI: new "Smart Fit" method card between "Fit to Path" and "Preserve Shape"; Advanced panel grows a Smart Fit Options section (Min. Overlap % spinner + Proximity-weighted checkbox) visible only in Smart Fit mode. Square End buffer preview (_update_tol_preview, _on_path_updated) already uses _get_end() — confirmed correct. Backward compatible: all previous methods unchanged.
+    v10.1.8: Buffer Distance Fix. The Tolerance value now correctly acts as the hard containment boundary — only features whose geometry intersects the tolerance buffer of the drawn path are aligned (matching ArcGIS Pro behaviour). Previously the algorithm silently expanded search_buffer to tolerance*2, pulling in features outside the drawn buffer. Fixed: search_buffer clamp is now max(search_buffer, tolerance) instead of tolerance*2. Dialog _get_features() bbox pre-filter updated from tol*2 to tol to match.
+    v10.1.7: Coherent Fit to Path gap-closing fix. Densification + master-path projection for Fit to Path so adjacent parcels share identical boundary coordinates.
+    v10.1.1: QGIS 4 loading fixes. Declared qgisMaximumVersion=4.99 so the plugin is allowed to load under QGIS 4 (a 3.x-only maximum silently blocked it before). Fully scoped every Qt and QGIS enum that PyQt6 no longer exposes in unscoped form (Qt.*, Qgis.MessageLevel.*, QgsWkbTypes.GeometryType/Type.*, QFrame/QSizePolicy/QSlider widget enums, QgsVertexMarker.IconType.*, QgsPointLocator.Type.*). QAction import now falls back from QtWidgets to QtGui (moved in Qt6). Enums relocated to the Qgis namespace in QGIS 4 (layer filters, feature-request flags, tolerance unit) are resolved defensively at import time with QGIS 3 fallbacks. All v10 master-path snapping logic and the v10.1 buffer/curve shims are unchanged.
+    v10.1.0: QGIS 4 compatibility groundwork. Buffer style resolution now uses a module-level _resolve_buffer_styles() helper that probes five API strategies (Qgis.EndCapStyle, QgsGeometry.CapRound, QgsBufferParameters, integer fallback) at import time. _make_buffer() tries four QgsGeometry.buffer() call signatures. QgsWkbTypes.isCurvedType wrapped in _is_curved_wkb_type() shim. QgsMessageLog guarded for headless environments. QgsWkbTypes.displayString guarded for QGIS 4. All v10 master-path snapping logic unchanged.
+    v10.0.0: Global Master Boundary Alignment. Deterministic master-path snap forces all near-path vertices to the exact same coordinates across all polygons — bitwise-identical shared boundary, zero gaps. Two-tier: exact vertex pin at kinks (Tier 1) + segment projection (Tier 2).
+    v9.2.0: Hardened shared-boundary alignment. Global merge via spatial hash, deterministic trace direction, zero-length edge cleanup.
+    v9.0.0: Coherent Multi-Polygon Boundary Alignment. Enforce Shared Boundary option (default ON).
+    v8.0.0: True path tracing. Trace Mode button. Arc/curve-aware densification. Improved Chaikin smoothing.
+    v7.1.0: Trace & Smooth method with resample + snap + Chaikin smoothing.
+    v7.0.0: 4-step dock UI, spatial index, 5-level undo, preview rubber band.
